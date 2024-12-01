@@ -86,8 +86,102 @@ This project predicts monthly pharmaceutical sales for Innovix in Elbonie using 
   A graph showing trends over the months, with predictions extending beyond historical data.
 
 ---
+# README for `train.py`
 
-## Future Work
-- Enhance the model by adding external factors like seasonality or economic indicators.
-- Implement a user-friendly interface for easy deployment in real-world scenarios.
+## Overview
+`train.py` is a PyTorch-based script designed to train an LSTM model for monthly sales prediction. The model predicts sales volumes based on a dataset containing sales and indicator data. It normalizes the input, trains the LSTM on batches of data, and outputs the trained model weights and performance metrics.
+
+## Features
+- **Reproducibility**: Ensures deterministic results by setting seeds and fixing random behavior.
+- **Data Normalization**: Normalizes input and target data to improve training stability.
+- **Batch Training**: Utilizes a `DataLoader` for efficient batch training.
+- **Model Saving**: Saves the trained model's weights for future inference.
+- **Visualization**: Plots training and testing losses over epochs.
+
+---
+
+## Requirements
+### Libraries
+- Python 3.8 or higher
+- PyTorch
+- NumPy
+- Matplotlib
+
+### Dataset
+- Input tensors are saved in `.pth` format:
+  - `x_train_t2.pth`: Training features.
+  - `y_true_t2.pth`: Training targets.
+  - `predict_t2.pth`: Prediction features.
+
+---
+
+## Script Flow
+
+### 1. **Model Definition**
+An LSTM model (`SalesPredictionModel`) is defined with:
+- Input layer for 20 features.
+- LSTM layer with 32 hidden units.
+- Fully connected layer producing predictions for 14 months.
+
+### 2. **Data Preprocessing**
+- Loads and normalizes training and prediction data.
+- Adds a derived feature (`sum`) from the first two columns.
+
+### 3. **Training**
+- Loss: Mean Squared Error (MSE).
+- Optimizer: Adam.
+- Trains over multiple epochs on mini-batches.
+- Tracks and stores losses for training and testing datasets.
+
+### 4. **Model Saving**
+Saves the trained model weights to `model_weights.pth`.
+
+### 5. **Prediction**
+- Performs predictions on a separate dataset (`predict_t2.pth`).
+- Applies post-normalization scaling to derive the final output.
+
+### 6. **Visualization**
+Plots the train and test loss across epochs for insight into model performance.
+
+---
+
+## Usage
+
+### Training the Model
+1. Ensure the datasets (`x_train_t2.pth`, `y_true_t2.pth`, `predict_t2.pth`) are present in the specified `dataset2/` directory.
+2. Run the script:
+   ```bash
+   python train.py
+   ```
+3. Check `model_weights.pth` for the saved model.
+
+### Customization
+- **Hyperparameters**: Modify `learning_rate`, `batch_size`, `epochs`, or `hidden_size` for experimentation.
+- **Dataset Paths**: Adjust file paths to your dataset locations.
+
+---
+
+## Outputs
+1. **Model Weights**: Saved in `model_weights.pth`.
+2. **Predicted Sales**: Printed for the prediction dataset.
+3. **Loss Graphs**:
+   - Training Loss vs. Epochs.
+   - Testing Loss vs. Epochs.
+
+---
+
+## Example Graphs
+### Train Loss
+![Train Loss](#)  
+_Train loss decreases as the model learns._
+
+### Test Loss
+![Test Loss](#)  
+_Test loss provides a measure of model generalization._
+
+---
+
+## Notes
+- Ensure the datasets are properly formatted and scaled.
+- For advanced scenarios, adjust the LSTM architecture or training configurations.
 
