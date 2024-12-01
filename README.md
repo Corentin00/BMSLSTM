@@ -172,12 +172,13 @@ Plots the train and test loss across epochs for insight into model performance.
 
 ## Example Graphs
 ### Train Loss
-![Train Loss](#)  
+
+![Train Loss](graphs/photo_2024-12-01_11-55-02.jpg)
 _Train loss decreases as the model learns._
 
-### Test Loss
-![Test Loss](#)  
-_Test loss provides a measure of model generalization._
+
+### Predictions 
+![Graphique 2](graphs/photo_2024-12-01_11-54-58.jpg)
 
 ---
 
